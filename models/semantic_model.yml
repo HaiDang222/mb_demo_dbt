@@ -1,0 +1,16 @@
+semantic_models:
+  - name: transaction # A semantic model with the name Transactions
+    model: ref('customers') # References the dbt model named `fact_transactions`
+    description: "CEO is looking for some potential customers buying computers"
+    defaults:
+      agg_time_dimension: transaction_date
+      
+    entities: # Entities included in the table are defined here. MetricFlow will use these columns as join keys.
+      - name: customer_id
+        type: primary
+
+    dimensions: # dimensions are qualitative values such as names, dates, or geographical data. They provide context to metrics and allow "metric by group" data slicing.
+      - name: last_name
+        type: categorical
+      - name: first_name
+        type: categorical
